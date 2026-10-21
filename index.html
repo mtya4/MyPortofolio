@@ -345,248 +345,216 @@
         #navMenu .nav-btn:active {
           background-color: rgba(146, 91, 24, 0.08);
         }
-
-        /* =========================================
+ /* =========================================
      4. KONTEN UTAMA HP
   ========================================= */
 
-        main {
-          width: 100% !important;
-          max-width: 100% !important;
+  @media screen and (max-width: 767px) {
+    html,
+    body {
+      width: 100%;
+      min-height: 100%;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      -webkit-text-size-adjust: 100%;
+    }
 
-          height: auto !important;
-          min-height: 0 !important;
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      scroll-behavior: auto !important;
+    }
 
-          padding-left: 14px;
-          padding-right: 14px;
+    body {
+      touch-action: pan-y;
+    }
 
-          box-sizing: border-box;
-        }
+    main {
+      width: 100% !important;
+      max-width: 100% !important;
+      height: auto !important;
+      min-height: 0 !important;
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+      margin: 0 !important;
+    }
 
-        section {
-          width: 100%;
-          max-width: 100%;
-          min-width: 0;
-          box-sizing: border-box;
-        }
+    section {
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
+      scroll-margin-top: 12px;
+    }
 
-        /* =========================================
-     5. UKURAN JUDUL DAN TEKS
+    /* =========================================
+       HERO: PENUHI LAYAR HP
+    ========================================= */
+
+    section.presentation-slide[data-index="0"] {
+      width: 100% !important;
+      max-width: 100% !important;
+      min-width: 0 !important;
+
+      min-height: 100vh !important;
+      min-height: 100svh !important;
+      height: auto !important;
+
+      padding: 0 26px 36px !important;
+      margin: 0 !important;
+
+      display: flex !important;
+      flex-direction: column;
+      justify-content: center;
+      align-items: stretch;
+
+      overflow-wrap: break-word;
+    }
+
+    /* Pembungkus utama konten hero */
+    section.presentation-slide[data-index="0"] > div {
+      width: 100% !important;
+      max-width: 100% !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+
+    /* Elemen animasi */
+    section.presentation-slide[data-index="0"] .animate-item {
+      max-width: 100%;
+    }
+
+    /* Label di atas nama */
+    section.presentation-slide[data-index="0"] h1 {
+      font-size: clamp(27px, 7.2vw, 32px) !important;
+      line-height: 1.2 !important;
+      overflow-wrap: break-word;
+    }
+
+    /* Judul lain */
+    h2 {
+      font-size: clamp(20px, 5.5vw, 25px) !important;
+      line-height: 1.3 !important;
+      overflow-wrap: break-word;
+    }
+
+    h3 {
+      font-size: 16px !important;
+      line-height: 1.4 !important;
+      overflow-wrap: break-word;
+    }
+
+    h4 {
+      font-size: 14px !important;
+      line-height: 1.4 !important;
+      overflow-wrap: break-word;
+    }
+
+    /* Teks paragraf */
+    p {
+      font-size: 14px;
+      line-height: 1.6;
+      overflow-wrap: break-word;
+    }
+
+    li {
+      font-size: 13px;
+      line-height: 1.6;
+      overflow-wrap: break-word;
+    }
+
+    /* =========================================
+       GAMBAR DAN VIDEO
+    ========================================= */
+
+    img,
+    video,
+    iframe,
+    canvas,
+    svg {
+      max-width: 100%;
+    }
+
+    /* =========================================
+       FORM DAN TOMBOL
+    ========================================= */
+
+    input,
+    select,
+    textarea {
+      max-width: 100%;
+      font-size: 14px;
+    }
+
+    button {
+      max-width: 100%;
+    }
+
+    #navMenu {
+      touch-action: pan-y;
+    }
+  }
+
+  /* =========================================
+     HP LAYAR KECIL: MAKSIMAL 380 PX
   ========================================= */
 
-        h1 {
-          font-size: clamp(23px, 6vw, 30px) !important;
-          line-height: 1.2 !important;
-          overflow-wrap: break-word;
-        }
+  @media screen and (max-width: 380px) {
+    #mainHeader {
+      top: 10px !important;
+      right: 10px !important;
+      max-width: calc(100vw - 20px) !important;
+    }
 
-        h2 {
-          font-size: clamp(19px, 5vw, 24px) !important;
-          line-height: 1.3 !important;
-          overflow-wrap: break-word;
-        }
+    #menuToggle {
+      width: 38px;
+      height: 38px;
+    }
 
-        h3 {
-          font-size: 16px !important;
-          line-height: 1.4 !important;
-          overflow-wrap: break-word;
-        }
+    #menuToggle span {
+      width: 17px;
+    }
 
-        h4 {
-          font-size: 14px !important;
-          line-height: 1.4 !important;
-          overflow-wrap: break-word;
-        }
+    #navMenu {
+      top: 46px !important;
+      max-width: calc(100vw - 20px) !important;
+    }
 
-        p {
-          font-size: 13px;
-          line-height: 1.6;
-          overflow-wrap: break-word;
-        }
+    #navMenu .nav-btn {
+      padding: 8px 10px !important;
+      font-size: 10px !important;
+    }
 
-        li {
-          font-size: 13px;
-          line-height: 1.6;
-          overflow-wrap: break-word;
-        }
+    section.presentation-slide[data-index="0"] {
+      padding-left: 22px !important;
+      padding-right: 22px !important;
+    }
 
-        /* =========================================
-     6. GAMBAR DAN VIDEO HP
+    section.presentation-slide[data-index="0"] h1 {
+      font-size: 26px !important;
+    }
+
+    p {
+      font-size: 13px;
+    }
+
+    li {
+      font-size: 12px;
+    }
+  }
+
+  /* =========================================
+     HP PENDEK: ATUR JARAK VERTIKAL
   ========================================= */
 
-        img,
-        video,
-        iframe,
-        canvas,
-        svg {
-          max-width: 100%;
-        }
-
-        /* =========================================
-     7. FORM DAN TOMBOL HP
-  ========================================= */
-
-        input,
-        select,
-        textarea {
-          max-width: 100%;
-          font-size: 13px;
-        }
-
-        button {
-          max-width: 100%;
-        }
-
-        /* =========================================
-     8. MENGURANGI JARAK KONTEN
-  ========================================= */
-
-        section {
-          scroll-margin-top: 12px;
-        }
-
-        /* Tidak menggunakan animasi scroll otomatis */
-        *,
-        *::before,
-        *::after {
-          scroll-behavior: auto !important;
-        }
-
-        /* Mempertahankan scroll vertikal pada layar sentuh */
-        body {
-          touch-action: pan-y;
-        }
-
-        #navMenu {
-          touch-action: pan-y;
-        }
-      }
-
-      /* =========================================
-   9. HP LAYAR KECIL
-========================================= */
-
-      @media screen and (max-width: 380px) {
-        #mainHeader {
-          top: 10px !important;
-          right: 10px !important;
-          max-width: calc(100vw - 20px) !important;
-        }
-
-        #menuToggle {
-          width: 38px;
-          height: 38px;
-        }
-
-        #menuToggle span {
-          width: 17px;
-        }
-
-        #navMenu {
-          top: 46px !important;
-          max-width: calc(100vw - 20px) !important;
-        }
-
-        #navMenu .nav-btn {
-          padding: 8px 10px !important;
-          font-size: 10px !important;
-        }
-
-        main {
-          padding-left: 11px;
-          padding-right: 11px;
-        }
-
-        h1 {
-          font-size: 23px !important;
-        }
-
-        h2 {
-          font-size: 19px !important;
-        }
-
-        h3 {
-          font-size: 15px !important;
-        }
-
-        p,
-        li {
-          font-size: 12px;
-        }
-      }
-      
-/* Perbaikan tampilan mobile */
-@media screen and (max-width: 767px) {
-  html,
-  body {
-    width: 100%;
-    min-height: 100%;
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden;
+  @media screen and (max-width: 767px) and (max-height: 700px) {
+    section.presentation-slide[data-index="0"] {
+      padding-top: 65px !important;
+      padding-bottom: 24px !important;
+    }
   }
-
-  body {
-    -webkit-text-size-adjust: 100%;
-  }
-
-  /* Section utama / hero */
-  .presentation-slide {
-    width: 100% !important;
-    min-height: 100vh;
-    min-height: 100svh;
-    box-sizing: border-box;
-    padding: 100px 24px 40px !important;
-    margin: 0 !important;
-  }
-
-  /* Hilangkan ruang kosong berlebihan di atas */
-  .presentation-slide > div {
-    margin-top: 0 !important;
-  }
-
-  /* Jika konten hero menggunakan animasi */
-  .presentation-slide .animate-item {
-    max-width: 100%;
-  }
-
-  /* Judul utama */
-  .presentation-slide h1 {
-    font-size: clamp(28px, 8vw, 36px);
-    line-height: 1.2;
-    overflow-wrap: break-word;
-  }
-
-  /* Deskripsi */
-  .presentation-slide p {
-    font-size: 15px;
-    line-height: 1.6;
-  }
-
-  /* Gambar agar tidak melampaui layar */
-  .presentation-slide img {
-    max-width: 100%;
-  }
-}
-
-@media screen and (max-width: 767px) {
-  .presentation-slide[data-index="0"] {
-    box-sizing: border-box;
-    width: 100%;
-    min-height: 100vh;
-    min-height: 100svh;
-    padding: 100px 30px 40px !important;
-    margin: 0 !important;
-  }
-
-  .presentation-slide[data-index="0"] > div {
-    margin-top: 0 !important;
-  }
-
-  .presentation-slide[data-index="0"] .animate-item {
-    margin-top: 0 !important;
-  }
-}
 
     </style>
   </head>
