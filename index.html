@@ -514,6 +514,61 @@
           font-size: 12px;
         }
       }
+      
+/* Perbaikan tampilan mobile */
+@media screen and (max-width: 767px) {
+  html,
+  body {
+    width: 100%;
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+  }
+
+  body {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  /* Section utama / hero */
+  .presentation-slide {
+    width: 100% !important;
+    min-height: 100vh;
+    min-height: 100svh;
+    box-sizing: border-box;
+    padding: 100px 24px 40px !important;
+    margin: 0 !important;
+  }
+
+  /* Hilangkan ruang kosong berlebihan di atas */
+  .presentation-slide > div {
+    margin-top: 0 !important;
+  }
+
+  /* Jika konten hero menggunakan animasi */
+  .presentation-slide .animate-item {
+    max-width: 100%;
+  }
+
+  /* Judul utama */
+  .presentation-slide h1 {
+    font-size: clamp(28px, 8vw, 36px);
+    line-height: 1.2;
+    overflow-wrap: break-word;
+  }
+
+  /* Deskripsi */
+  .presentation-slide p {
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  /* Gambar agar tidak melampaui layar */
+  .presentation-slide img {
+    max-width: 100%;
+  }
+}
+
     </style>
   </head>
   <body
