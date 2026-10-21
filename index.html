@@ -1,0 +1,1568 @@
+<!doctype html>
+<html lang="id" class="h-full overflow-hidden">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mutia Maharani, S.Kom — Portfolio</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Caveat:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <!-- Tailwind CSS Play CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              warmBg: "#FBF8F1",
+            },
+            fontFamily: {
+              sans: ['"Plus Jakarta Sans"', "sans-serif"],
+              serif: ['"Playfair Display"', "serif"],
+              script: ['"Caveat"', "cursive"],
+            },
+          },
+        },
+      };
+    </script>
+
+    <!-- Custom CSS Animasi Presentasi & Modal Pop-Up -->
+    <style>
+      .text-outline-light {
+        -webkit-text-stroke: 1.5px rgba(197, 155, 39, 0.35);
+        color: transparent;
+      }
+
+      body {
+        overflow: hidden;
+        background-color: #fbf8f1;
+      }
+
+      /* Ambient Background Glow */
+      .ambient-glow {
+        position: absolute;
+        width: 500px;
+        height: 500px;
+        background: radial-gradient(
+          circle,
+          rgba(245, 158, 11, 0.12) 0%,
+          rgba(251, 248, 241, 0) 70%
+        );
+        border-radius: 50%;
+        z-index: 0;
+        pointer-events: none;
+      }
+
+      /* Transisi Slide Utama */
+      .presentation-slide {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(40px) scale(0.97);
+        transition:
+          opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1),
+          transform 1.2s cubic-bezier(0.16, 1, 0.3, 1),
+          visibility 1.2s;
+        pointer-events: none;
+      }
+
+      /* Saat Slide Aktif */
+      .presentation-slide.active {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0) scale(1);
+        pointer-events: auto;
+      }
+
+      /* Efek Animasi Masuk Satu Persatu (Staggered Elements) */
+      .presentation-slide .animate-item {
+        opacity: 0;
+        transform: translateY(30px);
+        transition:
+          opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+          transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      .presentation-slide.active .delay-1 {
+        opacity: 1;
+        transform: translateY(0);
+        transition-delay: 0.2s;
+      }
+      .presentation-slide.active .delay-2 {
+        opacity: 1;
+        transform: translateY(0);
+        transition-delay: 0.4s;
+      }
+      .presentation-slide.active .delay-3 {
+        opacity: 1;
+        transform: translateY(0);
+        transition-delay: 0.6s;
+      }
+      .presentation-slide.active .delay-4 {
+        opacity: 1;
+        transform: translateY(0);
+        transition-delay: 0.8s;
+      }
+      /* Efek Pinggiran Sobekan Kertas di Sekeliling Foto */
+      .torn-paper-photo {
+        filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.22));
+        /* Menggunakan mask SVG artistik dengan pinggiran tidak beraturan / bergerigi seperti sobekan */
+        mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="300" height="400" preserveAspectRatio="none" viewBox="0 0 300 400"><path d="M4,8 C12,3 18,11 25,6 C33,1 41,12 49,5 C58,2 66,10 74,4 C83,1 91,11 100,6 C108,1 117,10 125,5 C134,1 142,12 151,6 C159,1 168,11 176,5 C185,2 193,10 202,4 C210,1 219,11 227,6 C236,2 244,10 252,5 C261,2 269,11 278,6 C286,2 292,8 296,15 L294,385 C290,392 297,396 293,403 C285,398 277,404 269,399 C260,396 252,403 244,398 C235,395 227,402 219,397 C210,394 202,402 194,397 C185,394 177,401 169,396 C160,394 152,402 144,397 C135,394 127,401 119,396 C110,394 102,402 94,397 C85,394 77,401 69,396 C60,394 52,402 44,397 C35,395 27,401 19,396 C11,392 6,398 3,392 Z" fill="black"/></svg>');
+        -webkit-mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="300" height="400" preserveAspectRatio="none" viewBox="0 0 300 400"><path d="M4,8 C12,3 18,11 25,6 C33,1 41,12 49,5 C58,2 66,10 74,4 C83,1 91,11 100,6 C108,1 117,10 125,5 C134,1 142,12 151,6 C159,1 168,11 176,5 C185,2 193,10 202,4 C210,1 219,11 227,6 C236,2 244,10 252,5 C261,2 269,11 278,6 C286,2 292,8 296,15 L294,385 C290,392 297,396 293,403 C285,398 277,404 269,399 C260,396 252,403 244,398 C235,395 227,402 219,397 C210,394 202,402 194,397 C185,394 177,401 169,396 C160,394 152,402 144,397 C135,394 127,401 119,396 C110,394 102,402 94,397 C85,394 77,401 69,396 C60,394 52,402 44,397 C35,395 27,401 19,396 C11,392 6,398 3,392 Z" fill="black"/></svg>');
+        mask-size: 100% 100%;
+        -webkit-mask-size: 100% 100%;
+      }
+
+      /* Latar belakang kertas jeruk kasar kekuningan tepat di balik foto */
+      .paper-texture-bg {
+        background-color: #f4e8d1;
+        background-image: radial-gradient(
+          rgba(160, 115, 60, 0.2) 1px,
+          transparent 1px
+        );
+        background-size: 5px 5px;
+      }
+
+      /* Navbar khusus tampilan HP */
+      @media screen and (max-width: 767px) {
+        header:has(#navMenu) {
+          position: fixed !important;
+          top: 12px !important;
+          left: 10px !important;
+          right: 10px !important;
+          width: auto !important;
+          max-width: none !important;
+          transform: none !important;
+          z-index: 99999 !important;
+        }
+
+        #navMenu {
+          display: flex !important;
+          flex-wrap: nowrap !important;
+          justify-content: flex-start !important;
+          align-items: center !important;
+          gap: 4px !important;
+
+          width: 100% !important;
+          box-sizing: border-box !important;
+          padding: 5px !important;
+
+          background: rgba(255, 255, 255, 0.94) !important;
+          backdrop-filter: blur(16px);
+          -webkit-backdrop-filter: blur(16px);
+
+          border-radius: 30px !important;
+          overflow-x: auto !important;
+          overflow-y: hidden !important;
+
+          opacity: 1 !important;
+          visibility: visible !important;
+        }
+
+        /* Sembunyikan scrollbar, tetapi tetap bisa digeser */
+        #navMenu::-webkit-scrollbar {
+          display: none;
+        }
+
+        #navMenu {
+          scrollbar-width: none;
+        }
+
+        #navMenu .nav-btn {
+          flex: 0 0 auto !important;
+          padding: 10px 12px !important;
+          font-size: 10px !important;
+          line-height: 1.2 !important;
+          letter-spacing: 0.04em !important;
+          white-space: nowrap !important;
+          border-radius: 24px !important;
+        }
+      }
+
+      /* HP dengan layar kecil */
+      @media screen and (max-width: 380px) {
+        #navMenu .nav-btn {
+          padding: 9px 10px !important;
+          font-size: 9px !important;
+        }
+      }
+
+      /* Hamburger disembunyikan di laptop */
+      #menuToggle {
+        display: none;
+      }
+
+      /* Perubahan khusus HP */
+      @media screen and (max-width: 767px) {
+        #mainHeader {
+          top: 14px !important;
+          left: auto !important;
+          right: 14px !important;
+          transform: none !important;
+          width: auto !important;
+          max-width: none !important;
+          z-index: 99999 !important;
+        }
+
+        #menuToggle {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 5px;
+          width: 44px;
+          height: 44px;
+          margin-left: auto;
+          padding: 10px;
+          border: 1px solid rgba(146, 91, 24, 0.2);
+          border-radius: 50%;
+          background: rgba(255, 255, 255, 0.96);
+          box-shadow: 0 5px 20px rgba(120, 70, 20, 0.12);
+          cursor: pointer;
+        }
+
+        #menuToggle span {
+          display: block;
+          width: 20px;
+          height: 2px;
+          background: #92400e;
+          border-radius: 5px;
+        }
+
+        #navMenu {
+          display: none !important;
+          position: absolute !important;
+          top: 52px;
+          right: 0;
+          left: auto;
+          flex-direction: column !important;
+          align-items: stretch !important;
+          gap: 4px !important;
+          width: max-content;
+          max-width: calc(100vw - 28px);
+          padding: 8px !important;
+          box-sizing: border-box;
+          overflow: visible !important;
+          background: rgba(255, 255, 255, 0.97) !important;
+          border-radius: 18px !important;
+        }
+
+        #navMenu.menu-open {
+          display: flex !important;
+        }
+
+        #navMenu .nav-btn {
+          width: 100%;
+          text-align: left;
+          white-space: nowrap;
+          padding: 12px 16px !important;
+          font-size: 11px !important;
+        }
+      }
+    </style>
+  </head>
+  <body
+    class="h-full text-slate-900 font-sans antialiased selection:bg-amber-200 selection:text-amber-900 relative"
+  >
+    <!-- Ambient Background Lighting Effects -->
+    <div class="ambient-glow -top-32 -left-32"></div>
+    <div class="ambient-glow -bottom-32 -right-32"></div>
+
+    <!-- Header / Navbar Mengambang Ala Pill Presentasi -->
+
+    <header
+      id="mainHeader"
+      class="fixed top-6 left-1/2 -translate-x-1/2 z-50"
+      style="width: max-content; max-width: calc(100% - 20px)"
+    >
+      <!-- Tombol hamburger: hanya tampil di HP -->
+      <button
+        id="menuToggle"
+        type="button"
+        aria-label="Buka menu"
+        aria-expanded="false"
+        aria-controls="navMenu"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <!-- Navbar desktop tetap seperti desain awal -->
+      <nav
+        id="navMenu"
+        class="flex items-center gap-1 bg-white/85 backdrop-blur-xl border border-amber-900/10 px-4 py-2 rounded-full shadow-xl shadow-amber-900/5"
+      >
+        <button
+          onclick="goToSlide(0)"
+          class="nav-btn px-4 py-2 rounded-full text-xs uppercase tracking-wider font-bold bg-amber-500 text-white shadow-md transition-all"
+        >
+          Home
+        </button>
+
+        <button
+          onclick="goToSlide(1)"
+          class="nav-btn px-4 py-2 rounded-full text-xs uppercase tracking-wider font-medium text-slate-600 hover:text-amber-700 hover:bg-amber-50 transition-all"
+        >
+          About
+        </button>
+
+        <button
+          onclick="goToSlide(2)"
+          class="nav-btn px-4 py-2 rounded-full text-xs uppercase tracking-wider font-medium text-slate-600 hover:text-amber-700 hover:bg-amber-50 transition-all"
+        >
+          Services
+        </button>
+
+        <button
+          onclick="goToSlide(3)"
+          class="nav-btn px-4 py-2 rounded-full text-xs uppercase tracking-wider font-medium text-slate-600 hover:text-amber-700 hover:bg-amber-50 transition-all"
+        >
+          Portfolio
+        </button>
+
+        <button
+          onclick="goToSlide(4)"
+          class="nav-btn px-4 py-2 rounded-full text-xs uppercase tracking-wider font-medium text-slate-600 hover:text-amber-700 hover:bg-amber-50 transition-all"
+        >
+          Contact
+        </button>
+      </nav>
+    </header>
+
+    <!-- Main Presentation Container (Full Screen Slides) -->
+    <main class="w-screen h-screen relative overflow-hidden">
+      <!-- ==================== SLIDE 1: HOME ==================== -->
+      <section
+        class="presentation-slide active px-8 lg:px-20 pt-16"
+        data-index="0"
+      >
+        <div
+          class="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10"
+        >
+          <!-- Kolom Teks Kiri -->
+          <div class="lg:col-span-7 flex flex-col items-start space-y-6">
+            <div
+              class="animate-item delay-1 inline-flex items-center gap-2 px-4 py-1.5 bg-amber-500/10 border border-amber-500/30 rounded-full text-amber-800 text-xs font-bold tracking-widest uppercase shadow-sm"
+            >
+              <span
+                class="w-2 h-2 rounded-full bg-amber-500 animate-ping"
+              ></span>
+              <span>Data Analyst &amp; System Analyst</span>
+            </div>
+
+            <div class="animate-item delay-2 space-y-2">
+              <h1
+                class="font-serif text-5xl md:text-7xl font-bold tracking-tight text-slate-900 leading-[1.1]"
+              >
+                Mutia Maharani ,
+                <span class="text-amber-600 italic">S.Kom</span>
+              </h1>
+              <p
+                class="font-script text-3xl md:text-4xl text-amber-700 font-semibold transform -rotate-1"
+              >
+                Transforming raw data into actionable insights &amp; robust
+                systems.
+              </p>
+            </div>
+
+            <p
+              class="animate-item delay-3 text-slate-600 text-base md:text-lg leading-relaxed max-w-xl"
+            >
+              Profesional di bidang
+              <strong class="text-slate-900 font-semibold">Data Analyst</strong
+              >,
+              <strong class="text-slate-900 font-semibold"
+                >Visualisasi Data</strong
+              >, dan
+              <strong class="text-slate-900 font-semibold"
+                >Analisis Sistem</strong
+              >. Mengubah data kompleks menjadi wawasan visual yang interaktif.
+            </p>
+
+            <div
+              class="animate-item delay-4 flex flex-wrap items-center gap-4 pt-2"
+            >
+              <button
+                onclick="goToSlide(3)"
+                class="px-8 py-4 bg-amber-500 text-white rounded-full font-bold text-sm hover:bg-amber-600 transition-all shadow-xl shadow-amber-500/25 flex items-center gap-3 group"
+              >
+                <span>Lihat Portfolio</span>
+                <i
+                  class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"
+                ></i>
+              </button>
+              <button
+                onclick="goToSlide(4)"
+                class="px-8 py-4 bg-white/80 backdrop-blur-md border border-amber-900/15 text-slate-800 rounded-full font-bold text-sm hover:bg-amber-50 transition-all shadow-sm"
+              >
+                Hubungi Saya
+              </button>
+            </div>
+          </div>
+
+          <!-- Kolom Foto Kanan (Diperbesar & Efek Sobekan Jelas) -->
+          <div
+            class="lg:col-span-5 relative flex items-center justify-center animate-item delay-3"
+          >
+            <!-- Efek Background Huruf Transparan -->
+            <div
+              class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none select-none z-0 leading-none"
+            >
+              <span
+                class="font-serif text-[110px] md:text-[140px] font-black text-outline-light tracking-tighter opacity-70"
+                >DATA</span
+              >
+              <span
+                class="font-serif text-[90px] md:text-[115px] font-black text-amber-600/20 italic tracking-tighter"
+                >ANALYST</span
+              >
+            </div>
+
+            <!-- Kontainer Foto & Label Nama -->
+            <div class="relative z-20 flex items-center gap-6">
+              <div
+                class="w-[320px] h-[420px] md:w-[360px] md:h-[470px] overflow-hidden torn-paper transform hover:scale-105 transition-transform duration-700"
+              >
+                <img
+                  src="assets/contoh.png"
+                  alt="Mutia Maharani"
+                  class="w-full h-full object-cover object-top"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== SLIDE 2: ABOUT ==================== -->
+      <section class="presentation-slide px-8 lg:px-20 pt-16" data-index="1">
+        <div
+          class="max-w-5xl w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10"
+        >
+          <div class="lg:col-span-5 relative animate-item delay-2">
+            <div
+              class="relative w-full max-w-md mx-auto h-auto rounded-3xl overflow-hidden shadow-2xl border-4 border-white bg-slate-100"
+            >
+              <img
+                src="assets/IMG_EDIT-removebg-preview.png"
+                alt="Workspace"
+                class="block w-full h-auto object-contain opacity-90"
+              />
+              <div
+                class="absolute inset-0 bg-gradient-to-t from-slate-900/50 via-slate-900/10 to-transparent pointer-events-none"
+              ></div>
+            </div>
+          </div>
+
+          <div class="lg:col-span-7 space-y-6">
+            <div
+              class="animate-item delay-1 inline-flex items-center gap-2 px-4 py-1.5 bg-amber-500/10 border border-amber-500/30 rounded-full text-amber-800 text-xs font-bold tracking-widest uppercase"
+            >
+              <span>Tentang Saya</span>
+            </div>
+            <h2
+              class="animate-item delay-2 font-serif text-4xl md:text-5xl font-bold text-slate-900"
+            >
+              Hallo It's Me
+            </h2>
+            <p
+              class="animate-item delay-3 text-slate-600 text-base md:text-lg leading-relaxed"
+            >
+              Lulusan S1 Sistem Informasi dengan pengalaman magang sebagai
+              bagian dari Tim Proyek TI di LPPM Universitas Cipasung
+              Tasikmalaya. Berpengalaman mengidentifikasi proses bisnis,
+              menganalisis kebutuhan pengguna, serta merancang solusi sistem
+              untuk mengotomatisasi proses bisnis. Memiliki kemampuan dalam
+              analisis, pengolahan, dan visualisasi data, serta terbiasa
+              mengelola dan menyajikan data secara teliti dan sistematis. Mampu
+              bekerja sesuai prosedur, berorientasi pada ketelitian, dan siap
+              mengembangkan kemampuan melalui pembelajaran serta pengalaman
+              kerja.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== SLIDE 3: SERVICES ==================== -->
+      <section
+        class="presentation-slide px-6 lg:px-20 pt-12 pb-16 relative overflow-hidden"
+        data-index="2"
+      >
+        <!-- Animated Ambient Background Orbs -->
+        <div
+          class="animate-float-1 absolute -top-24 -left-24 w-96 h-96 bg-amber-400/20 rounded-full blur-3xl pointer-events-none"
+        ></div>
+        <div
+          class="animate-float-2 absolute -bottom-24 -right-24 w-[28rem] h-[28rem] bg-amber-500/15 rounded-full blur-3xl pointer-events-none"
+        ></div>
+
+        <div class="max-w-6xl w-full mx-auto space-y-10 relative z-10">
+          <!-- Header Section dengan Micro-Interactions -->
+          <div class="text-center space-y-3 max-w-2xl mx-auto">
+            <h2
+              class="animate-item delay-2 font-serif text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight"
+            >
+              Keahlian &amp; Solusi
+            </h2>
+
+            <p
+              class="animate-item delay-2 text-slate-600 text-sm md:text-base leading-relaxed"
+            >
+              Memberikan nilai tambah bagi bisnis melalui pengolahan data
+              presisi dan perancangan sistem yang efisien.
+            </p>
+          </div>
+
+          <!-- Grid Container -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+            <!-- Card 1: Data Analyst -->
+            <div
+              class="animate-item delay-2 group relative bg-white/80 backdrop-blur-xl p-8 rounded-3xl border border-amber-900/10 shadow-lg hover:shadow-2xl hover:border-amber-400/60 hover:-translate-y-3 transition-all duration-500 ease-out flex flex-col justify-between overflow-hidden"
+            >
+              <!-- Hover Top Glow Bar -->
+              <div
+                class="absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              ></div>
+
+              <!-- Shine Animation Effect -->
+              <div class="animate-shine"></div>
+
+              <div>
+                <!-- Icon Container with Rotation & Bounce Animation -->
+                <div
+                  class="w-16 h-16 rounded-2xl bg-gradient-to-br from-amber-100 to-amber-50 text-amber-700 flex items-center justify-center text-2xl font-bold mb-6 group-hover:scale-110 group-hover:-rotate-6 group-hover:from-amber-500 group-hover:to-amber-600 group-hover:text-white shadow-md group-hover:shadow-amber-500/30 transition-all duration-300"
+                >
+                  <i
+                    class="fa-solid fa-chart-line group-hover:scale-110 transition-transform duration-300"
+                  ></i>
+                </div>
+
+                <h3
+                  class="font-serif text-2xl font-bold text-slate-900 mb-3 group-hover:text-amber-600 transition-colors duration-300"
+                >
+                  Data Analyst
+                </h3>
+
+                <p class="text-slate-600 text-sm leading-relaxed mb-6">
+                  Mengumpulkan, membersihkan, dan menganalisis dataset besar
+                  untuk menemukan pola tersembunyi yang mendorong keputusan
+                  bisnis strategis.
+                </p>
+              </div>
+
+              <!-- Animated Tech Badges -->
+              <div class="flex flex-wrap gap-2 pt-4 border-t border-slate-100">
+                <span
+                  class="px-3 py-1 bg-slate-100 group-hover:bg-amber-100/70 text-slate-600 group-hover:text-amber-900 rounded-lg text-xs font-semibold hover:scale-105 transition-all duration-200"
+                  >Python</span
+                >
+                <span
+                  class="px-3 py-1 bg-slate-100 group-hover:bg-amber-100/70 text-slate-600 group-hover:text-amber-900 rounded-lg text-xs font-semibold hover:scale-105 transition-all duration-200"
+                  >SQL</span
+                >
+                <span
+                  class="px-3 py-1 bg-slate-100 group-hover:bg-amber-100/70 text-slate-600 group-hover:text-amber-900 rounded-lg text-xs font-semibold hover:scale-105 transition-all duration-200"
+                  >Statistics</span
+                >
+              </div>
+            </div>
+
+            <!-- Card 2: Visualisasi Data -->
+            <div
+              class="animate-item delay-3 group relative bg-white/80 backdrop-blur-xl p-8 rounded-3xl border border-amber-900/10 shadow-lg hover:shadow-2xl hover:border-amber-400/60 hover:-translate-y-3 transition-all duration-500 ease-out flex flex-col justify-between overflow-hidden"
+            >
+              <div
+                class="absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              ></div>
+              <div class="animate-shine"></div>
+
+              <div>
+                <div
+                  class="w-16 h-16 rounded-2xl bg-gradient-to-br from-amber-100 to-amber-50 text-amber-700 flex items-center justify-center text-2xl font-bold mb-6 group-hover:scale-110 group-hover:-rotate-6 group-hover:from-amber-500 group-hover:to-amber-600 group-hover:text-white shadow-md group-hover:shadow-amber-500/30 transition-all duration-300"
+                >
+                  <i
+                    class="fa-solid fa-chart-pie group-hover:rotate-12 transition-transform duration-300"
+                  ></i>
+                </div>
+
+                <h3
+                  class="font-serif text-2xl font-bold text-slate-900 mb-3 group-hover:text-amber-600 transition-colors duration-300"
+                >
+                  Visualisasi Data
+                </h3>
+
+                <p class="text-slate-600 text-sm leading-relaxed mb-6">
+                  Membangun dashboard interaktif dan laporan visual intuitif
+                  untuk memantau metrik performa secara real-time.
+                </p>
+              </div>
+
+              <!-- Animated Tech Badges -->
+              <div class="flex flex-wrap gap-2 pt-4 border-t border-slate-100">
+                <span
+                  class="px-3 py-1 bg-slate-100 group-hover:bg-amber-100/70 text-slate-600 group-hover:text-amber-900 rounded-lg text-xs font-semibold hover:scale-105 transition-all duration-200"
+                  >Power BI</span
+                >
+              </div>
+            </div>
+
+            <!-- Card 3: Analisis Sistem -->
+            <div
+              class="animate-item delay-4 group relative bg-white/80 backdrop-blur-xl p-8 rounded-3xl border border-amber-900/10 shadow-lg hover:shadow-2xl hover:border-amber-400/60 hover:-translate-y-3 transition-all duration-500 ease-out flex flex-col justify-between overflow-hidden"
+            >
+              <div
+                class="absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              ></div>
+              <div class="animate-shine"></div>
+
+              <div>
+                <div
+                  class="w-16 h-16 rounded-2xl bg-gradient-to-br from-amber-100 to-amber-50 text-amber-700 flex items-center justify-center text-2xl font-bold mb-6 group-hover:scale-110 group-hover:-rotate-6 group-hover:from-amber-500 group-hover:to-amber-600 group-hover:text-white shadow-md group-hover:shadow-amber-500/30 transition-all duration-300"
+                >
+                  <i
+                    class="fa-solid fa-diagram-project group-hover:scale-110 transition-transform duration-300"
+                  ></i>
+                </div>
+
+                <h3
+                  class="font-serif text-2xl font-bold text-slate-900 mb-3 group-hover:text-amber-600 transition-colors duration-300"
+                >
+                  Analisis Sistem
+                </h3>
+
+                <p class="text-slate-600 text-sm leading-relaxed mb-6">
+                  Menganalisis kebutuhan operasional, merancang alur kerja
+                  sistem informasi terintegrasi, serta optimasi arsitektur.
+                </p>
+              </div>
+
+              <!-- Animated Tech Badges -->
+              <div class="flex flex-wrap gap-2 pt-4 border-t border-slate-100">
+                <span
+                  class="px-3 py-1 bg-slate-100 group-hover:bg-amber-100/70 text-slate-600 group-hover:text-amber-900 rounded-lg text-xs font-semibold hover:scale-105 transition-all duration-200"
+                  >UML / ERD</span
+                >
+                <span
+                  class="px-3 py-1 bg-slate-100 group-hover:bg-amber-100/70 text-slate-600 group-hover:text-amber-900 rounded-lg text-xs font-semibold hover:scale-105 transition-all duration-200"
+                  >BPMN</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== SLIDE 4: PORTFOLIO ==================== -->
+      <section class="presentation-slide px-8 lg:px-20 pt-16" data-index="3">
+        <div class="max-w-6xl w-full space-y-10 relative z-10">
+          <div class="text-center space-y-2 max-w-2xl mx-auto">
+            <div
+              class="animate-item delay-1 inline-flex items-center gap-2 px-4 py-1.5 bg-amber-500/10 border border-amber-500/30 rounded-full text-amber-800 text-xs font-bold tracking-widest uppercase"
+            >
+              <span>Karya &amp; Proyek</span>
+            </div>
+            <h2
+              class="animate-item delay-2 font-serif text-4xl md:text-5xl font-bold text-slate-900"
+            >
+              Portfolio Pilihan
+            </h2>
+            <p class="animate-item delay-3 text-slate-500 text-sm">
+              Klik pada salah satu kartu proyek di bawah untuk melihat detail
+              lengkap.
+            </p>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- ==================== KARTU SLIDE (TAMPILAN DEPAN) ==================== -->
+            <div
+              onclick="openModalSertifikat()"
+              class="animate-item delay-2 group relative bg-white/90 backdrop-blur-xl rounded-3xl overflow-hidden border border-amber-900/10 shadow-lg hover:shadow-2xl hover:border-amber-400/60 hover:-translate-y-2 transition-all duration-300 cursor-pointer flex flex-col justify-between"
+            >
+              <!-- Top Accent Glow Bar -->
+              <div
+                class="absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20"
+              ></div>
+
+              <div>
+                <!-- Gambar Sertifikat dengan Overlay Hover -->
+                <div class="h-44 overflow-hidden relative bg-slate-100">
+                  <img
+                    src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&auto=format&fit=crop&q=80"
+                    alt="Sertifikat Bootcamp Data Analysis Excel"
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div
+                    class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"
+                  >
+                    <span
+                      class="bg-white text-slate-900 px-4 py-2 rounded-full text-xs font-bold shadow-md transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300 flex items-center gap-2"
+                    >
+                      <i class="fa-solid fa-circle-info text-amber-600"></i>
+                      Lihat Detail &rarr;
+                    </span>
+                  </div>
+                  <div
+                    class="absolute top-3 left-3 bg-amber-500 text-white text-[10px] font-extrabold uppercase tracking-widest px-3 py-1 rounded-full shadow-md"
+                  >
+                    Bootcamp Certified
+                  </div>
+                </div>
+
+                <!-- Ringkasan Singkat Kartu -->
+                <div class="p-5 space-y-2">
+                  <h3
+                    class="font-serif text-lg font-bold text-slate-900 group-hover:text-amber-600 transition-colors"
+                  >
+                    Bootcamp Pengolahan Data Excel
+                  </h3>
+                  <p class="text-slate-600 text-xs line-clamp-2">
+                    Pelatihan intensif pengolahan data, formula tingkat lanjut,
+                    pivot table, dan pembuatan dashboard interaktif.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Footer Kartu Depan: Hanya Badge Tool -->
+              <div
+                class="px-5 py-3 border-t border-slate-100 bg-slate-50/80 flex items-center justify-between"
+              >
+                <span
+                  class="text-xs font-semibold text-slate-500 flex items-center gap-1.5"
+                >
+                  <i class="fa-solid fa-certificate text-amber-500"></i>
+                  Sertifikat Pelatihan
+                </span>
+                <span
+                  class="px-2.5 py-1 bg-emerald-100 text-emerald-800 rounded-md text-[11px] font-bold flex items-center gap-1"
+                >
+                  <i class="fa-solid fa-file-excel text-emerald-600"></i> MS
+                  Excel
+                </span>
+              </div>
+            </div>
+            <!-- ==================== MODAL POPUP (DETAIL & QR CODE BISA DI-SCAN) ==================== -->
+            <div
+              id="modalSertifikat"
+              class="fixed inset-0 z-50 hidden bg-slate-950/70 backdrop-blur-md flex items-center justify-center p-4 transition-all duration-300"
+            >
+              <div
+                class="bg-white rounded-3xl max-w-2xl w-full overflow-hidden shadow-2xl border border-slate-200 relative animate-in fade-in zoom-in duration-200"
+              >
+                <!-- Tombol Close Modal -->
+                <button
+                  onclick="closeModalSertifikat()"
+                  class="absolute top-4 right-4 z-10 w-9 h-9 bg-slate-900/60 hover:bg-slate-900 text-white rounded-full flex items-center justify-center transition-colors"
+                >
+                  <i class="fa-solid fa-xmark text-base"></i>
+                </button>
+
+                <!-- Header Modal Gambar -->
+                <div class="h-52 relative bg-slate-900 overflow-hidden">
+                  <img
+                    src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=1200&auto=format&fit=crop&q=80"
+                    alt="Sertifikat Excel"
+                    class="w-full h-full object-cover opacity-90"
+                  />
+                  <div
+                    class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent flex items-end p-6"
+                  >
+                    <div>
+                      <span
+                        class="px-3 py-1 bg-amber-500 text-white text-xs font-bold rounded-full uppercase tracking-wider mb-2 inline-block"
+                      >
+                        Sertifikat Resmi
+                      </span>
+                      <h2
+                        class="text-2xl md:text-3xl font-serif font-bold text-white"
+                      >
+                        Bootcamp Pengolahan Data Excel
+                      </h2>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Isi Modal: Paragraf Deskripsi & QR Code Real yang Bisa Di-scan -->
+                <div class="p-6 md:p-8 space-y-6">
+                  <!-- Paragraf Penjelasan Lengkap (Minimal 1 Paragraf Utuh) -->
+                  <div class="space-y-3">
+                    <h4
+                      class="text-xs font-bold text-amber-700 uppercase tracking-widest flex items-center gap-2"
+                    >
+                      <i class="fa-solid fa-file-lines"></i> Deskripsi Pelatihan
+                      &amp; Pencapaian
+                    </h4>
+                    <p
+                      class="text-slate-700 text-sm md:text-base leading-relaxed text-justify"
+                    >
+                      Telah berhasil menyelesaikan program
+                      <i>intensive bootcamp</i> pengolahan dan analisis data
+                      menggunakan Microsoft Excel secara mendalam. Pelatihan ini
+                      mencakup penguasaan rumus-rumus kompleks (seperti
+                      <b>VLOOKUP, XLOOKUP, INDEX-MATCH, dan Nested IF</b>),
+                      teknik pembersihan data (<i>data cleansing</i>), pemodelan
+                      tabel dinamis dengan <b>Pivot Table &amp; Pivot Chart</b>,
+                      hingga perancangan
+                      <i>interactive executive dashboard</i> untuk mendukung
+                      pengambilan keputusan bisnis berbasis data secara akurat
+                      dan profesional.
+                    </p>
+                  </div>
+
+                  <!-- Section QR Code Verifikasi (Bisa Langsung Di-scan Kamera HP) -->
+                  <div
+                    class="p-5 bg-amber-50/70 rounded-2xl border border-amber-200/80 flex flex-col sm:flex-row items-center gap-5"
+                  >
+                    <!-- Gambar QR Code yang Valid dan Bisa Di-scan -->
+                    <div
+                      class="w-28 h-28 bg-white p-2 rounded-xl border border-amber-300 shadow-md flex-shrink-0 flex items-center justify-center"
+                    >
+                      <img
+                        src="https://quickchart.io/qr?text=https%3A%2F%2Fdrive.google.com%2Fdrive%2Ffolders%2F17b-s3X_daBP4nl4V0oBRPH-vO6rinQ3O%3Fusp%3Ddrive_link&size=300&margin=2"
+                        alt="QR Code menuju folder sertifikat Google Drive"
+                        class="w-full h-full object-contain"
+                        loading="lazy"
+                      />
+                    </div>
+
+                    <div class="space-y-1 text-center sm:text-left">
+                      <h5
+                        class="font-bold text-slate-900 text-sm flex items-center justify-center sm:justify-start gap-2"
+                      >
+                        <i class="fa-solid fa-qrcode text-amber-600"></i>
+                        Verifikasi QR Code Sertifikat
+                      </h5>
+                      <p class="text-xs text-slate-600 leading-relaxed">
+                        Arahkan kamera smartphone Anda ke QR Code ini untuk
+                        langsung membuka dan mengunduh berkas sertifikat asli
+                        yang tersimpan di Google Drive.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ==================== KARTU SLIDE 2 (TAMPILAN DEPAN) ==================== -->
+            <div
+              onclick="openModalProyek2()"
+              class="animate-item delay-3 group relative bg-white/90 backdrop-blur-xl rounded-3xl overflow-hidden border border-amber-900/10 shadow-lg hover:shadow-2xl hover:border-amber-400/60 hover:-translate-y-2 transition-all duration-300 cursor-pointer flex flex-col justify-between"
+            >
+              <!-- Top Accent Glow Bar -->
+              <div
+                class="absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20"
+              ></div>
+
+              <div>
+                <!-- Gambar Proyek dengan Overlay Hover -->
+                <div class="h-44 overflow-hidden relative bg-slate-100">
+                  <img
+                    src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&auto=format&fit=crop&q=80"
+                    alt="Analisis dan Pengembangan Sistem"
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div
+                    class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"
+                  >
+                    <span
+                      class="bg-white text-slate-900 px-4 py-2 rounded-full text-xs font-bold shadow-md transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300 flex items-center gap-2"
+                    >
+                      <i class="fa-solid fa-circle-info text-amber-600"></i>
+                      Lihat Detail &rarr;
+                    </span>
+                  </div>
+                  <div
+                    class="absolute top-3 left-3 bg-amber-500 text-white text-[10px] font-extrabold uppercase tracking-widest px-3 py-1 rounded-full shadow-md"
+                  >
+                    System Analysis
+                  </div>
+                </div>
+
+                <!-- Ringkasan Singkat Kartu -->
+                <div class="p-5 space-y-2">
+                  <h3
+                    class="font-serif text-lg font-bold text-slate-900 group-hover:text-amber-600 transition-colors"
+                  >
+                    LPPM &amp; Sistem Pakar Neonatal
+                  </h3>
+                  <p class="text-slate-600 text-xs line-clamp-2">
+                    Perancangan sistem informasi manajemen LPPM Universitas
+                    Cipasung serta aplikasi sistem pakar diagnosis medis
+                    neonatal.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Footer Kartu Depan: Badge Tool -->
+              <div
+                class="px-5 py-3 border-t border-slate-100 bg-slate-50/80 flex items-center justify-between"
+              >
+                <span
+                  class="text-xs font-semibold text-slate-500 flex items-center gap-1.5"
+                >
+                  <i class="fa-solid fa-diagram-project text-amber-500"></i>
+                  Analisis &amp; Perancangan
+                </span>
+                <span
+                  class="px-2.5 py-1 bg-amber-100 text-amber-800 rounded-md text-[11px] font-bold flex items-center gap-1"
+                >
+                  <i class="fa-solid fa-code text-amber-600"></i> Web System
+                </span>
+              </div>
+            </div>
+            <!-- ==================== MODAL POPUP PROYEK 2 (DENGAN 2 QR CODE TERPISAH) ==================== -->
+            <div
+              id="modalProyek2"
+              class="fixed inset-0 z-50 hidden bg-slate-950/70 backdrop-blur-md flex items-center justify-center p-4 transition-all duration-300"
+            >
+              <div
+                class="bg-white rounded-3xl max-w-2xl w-full overflow-hidden shadow-2xl border border-slate-200 relative animate-in fade-in zoom-in duration-200 max-h-[90vh] overflow-y-auto"
+              >
+                <!-- Tombol Close Modal -->
+                <button
+                  onclick="closeModalProyek2()"
+                  class="absolute top-4 right-4 z-10 w-9 h-9 bg-slate-900/60 hover:bg-slate-900 text-white rounded-full flex items-center justify-center transition-colors"
+                >
+                  <i class="fa-solid fa-xmark text-base"></i>
+                </button>
+
+                <!-- Header Modal Gambar -->
+                <div class="h-48 relative bg-slate-900 overflow-hidden">
+                  <img
+                    src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&auto=format&fit=crop&q=80"
+                    alt="Sistem LPPM & Pakar Neonatal"
+                    class="w-full h-full object-cover opacity-90"
+                  />
+                  <div
+                    class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent flex items-end p-6"
+                  >
+                    <div>
+                      <span
+                        class="px-3 py-1 bg-amber-500 text-white text-xs font-bold rounded-full uppercase tracking-wider mb-2 inline-block"
+                      >
+                        Proyek Sistem Informasi
+                      </span>
+                      <h2
+                        class="text-2xl md:text-3xl font-serif font-bold text-white"
+                      >
+                        LPPM Universitas Cipasung &amp; Pakar Neonatal
+                      </h2>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Isi Modal: Paragraf Deskripsi & 2 QR Code Berbeda -->
+                <div class="p-6 md:p-8 space-y-6">
+                  <!-- Paragraf Penjelasan Lengkap -->
+                  <div class="space-y-3">
+                    <h4
+                      class="text-xs font-bold text-amber-700 uppercase tracking-widest flex items-center gap-2"
+                    >
+                      <i class="fa-solid fa-file-lines"></i> Deskripsi &amp;
+                      Arsitektur Sistem
+                    </h4>
+                    <p
+                      class="text-slate-700 text-sm md:text-base leading-relaxed text-justify"
+                    >
+                      Bertindak sebagai pengembang utama dalam merancang dan
+                      mengeksekusi dua solusi sistem informasi strategis
+                      berskala institusional. Memimpin pembangunan
+                      <b
+                        >Sistem Informasi Manajemen LPPM Universitas Cipasung
+                        Tasikmalaya</b
+                      >, mengoptimalkan alur kerja digital untuk manajemen riset
+                      dan pengabdian masyarakat secara <i>end-to-end</i>. Serta
+                      merancang <b>Aplikasi Sistem Pakar Diagnosis Neonatal</b>,
+                      mengimplementasikan algoritma penalaran terstruktur
+                      berbasis logika medis untuk mengkalkulasi tingkat risiko
+                      kesehatan bayi baru lahir secara presisi. Seluruh siklus
+                      pengembangan dikawal ketat mulai dari analisis kebutuhan
+                      sistem, pemodelan database relasional kompleks, hingga
+                      implementasi antarmuka berbasis web yang responsif, aman,
+                      dan berkinerja tinggi.
+                    </p>
+                  </div>
+
+                  <!-- Container 2 QR Code (LPPM & Neonatal) -->
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <!-- QR Code 1: LPPM Universitas Cipasung -->
+                    <div
+                      class="p-4 bg-amber-50/70 rounded-2xl border border-amber-200/80 flex items-center gap-4"
+                    >
+                      <div
+                        class="w-24 h-24 bg-white p-2 rounded-xl border border-amber-300 shadow-sm flex-shrink-0 flex items-center justify-center"
+                      >
+                        <img
+                          src="https://quickchart.io/qr?text=https%3A%2F%2Fdrive.google.com%2Fdrive%2Ffolders%2F1cUgHwYsmIvZU6ttKeOtYhroMe3u-KGV-%3Fusp%3Ddrive_link&size=300&margin=2"
+                          alt="QR Code Website LPPM Universitas Cipasung"
+                          class="w-full h-full object-contain"
+                          loading="lazy"
+                        />
+                      </div>
+                      <div class="space-y-1">
+                        <span
+                          class="inline-block px-2 py-0.5 bg-amber-500 text-white text-[10px] font-bold rounded"
+                          >Proyek 1</span
+                        >
+                        <h5 class="font-bold text-slate-900 text-xs">
+                          Website LPPM Uncipasung
+                        </h5>
+                        <p class="text-[11px] text-slate-600 leading-tight">
+                          Scan untuk akses sistem LPPM.
+                        </p>
+                      </div>
+                    </div>
+
+                    <!-- QR Code 2: Sistem Pakar Neonatal -->
+                    <div
+                      class="p-4 bg-amber-50/70 rounded-2xl border border-amber-200/80 flex items-center gap-4"
+                    >
+                      <div
+                        class="w-24 h-24 bg-white p-2 rounded-xl border border-amber-300 shadow-sm flex-shrink-0 flex items-center justify-center"
+                      >
+                        <img
+                          src="https://quickchart.io/qr?text=https://your-neonatal-expert-system.com&size=180&margin=1"
+                          alt="QR Code Sistem Pakar Neonatal"
+                          class="w-full h-full object-contain"
+                        />
+                      </div>
+                      <div class="space-y-1">
+                        <span
+                          class="inline-block px-2 py-0.5 bg-amber-600 text-white text-[10px] font-bold rounded"
+                          >Proyek 2</span
+                        >
+                        <h5 class="font-bold text-slate-900 text-xs">
+                          Sistem Pakar Neonatal
+                        </h5>
+                        <p class="text-[11px] text-slate-600 leading-tight">
+                          Scan untuk akses aplikasi pakar.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- ==================== JAVASCRIPT UNTUK MODAL PROYEK 2 ==================== -->
+
+            <!-- ==================== KARTU PROYEK 3 (TAMPILAN DEPAN) ==================== -->
+            <div
+              onclick="openModalProyek3()"
+              class="animate-item delay-4 group relative bg-white/90 backdrop-blur-xl rounded-3xl overflow-hidden border border-amber-900/10 shadow-lg hover:shadow-2xl hover:border-amber-400/60 hover:-translate-y-2 transition-all duration-300 cursor-pointer flex flex-col justify-between"
+            >
+              <!-- Top Accent Glow Bar -->
+              <div
+                class="absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20"
+              ></div>
+
+              <div>
+                <!-- Gambar Proyek dengan Overlay Hover -->
+                <div class="h-44 overflow-hidden relative bg-slate-100">
+                  <img
+                    src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&auto=format&fit=crop&q=80"
+                    alt="Tugas Akhir - FP-Growth & Power BI"
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div
+                    class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"
+                  >
+                    <span
+                      class="bg-white text-slate-900 px-4 py-2 rounded-full text-xs font-bold shadow-md transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300 flex items-center gap-2"
+                    >
+                      <i class="fa-solid fa-graduation-cap text-amber-600"></i>
+                      Lihat Skripsi &rarr;
+                    </span>
+                  </div>
+                  <div
+                    class="absolute top-3 left-3 bg-amber-500 text-white text-[10px] font-extrabold uppercase tracking-widest px-3 py-1 rounded-full shadow-md"
+                  >
+                    Undergraduate Thesis
+                  </div>
+                </div>
+
+                <!-- Ringkasan Singkat Kartu -->
+                <div class="p-5 space-y-2">
+                  <h3
+                    class="font-serif text-lg font-bold text-slate-900 group-hover:text-amber-600 transition-colors"
+                  >
+                    Analisis Pola Pembelian Rafamart (FP-Growth &amp; Power BI)
+                  </h3>
+                  <p class="text-slate-600 text-xs line-clamp-2">
+                    Penelitian tugas akhir mengenai penerapan *Market Basket
+                    Analysis* menggunakan algoritma FP-Growth dan visualisasi
+                    interaktif Power BI.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Footer Kartu Depan: Badge Tools -->
+              <div
+                class="px-5 py-3 border-t border-slate-100 bg-slate-50/80 flex items-center justify-between"
+              >
+                <span
+                  class="text-xs font-semibold text-slate-500 flex items-center gap-1.5"
+                >
+                  <i class="fa-solid fa-chart-line text-amber-500"></i> Data
+                  Science &amp; BI
+                </span>
+                <span
+                  class="px-2.5 py-1 bg-amber-100 text-amber-800 rounded-md text-[11px] font-bold flex items-center gap-1"
+                >
+                  <i class="fa-solid fa-brain text-amber-600"></i> FP-Growth
+                  &amp; Power BI
+                </span>
+              </div>
+            </div>
+            <!-- ==================== MODAL POPUP PROYEK 3 (DETAIL TUGAS AKHIR & QR CODE) ==================== -->
+            <div
+              id="modalProyek3"
+              class="fixed inset-0 z-50 hidden bg-slate-950/70 backdrop-blur-md flex items-center justify-center p-4 transition-all duration-300"
+            >
+              <div
+                class="bg-white rounded-3xl max-w-2xl w-full overflow-hidden shadow-2xl border border-slate-200 relative animate-in fade-in zoom-in duration-200 max-h-[90vh] overflow-y-auto"
+              >
+                <!-- Tombol Close Modal -->
+                <button
+                  onclick="closeModalProyek3()"
+                  class="absolute top-4 right-4 z-10 w-9 h-9 bg-slate-900/60 hover:bg-slate-900 text-white rounded-full flex items-center justify-center transition-colors"
+                >
+                  <i class="fa-solid fa-xmark text-base"></i>
+                </button>
+
+                <!-- Header Modal Gambar -->
+                <div class="h-48 relative bg-slate-900 overflow-hidden">
+                  <img
+                    src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&auto=format&fit=crop&q=80"
+                    alt="Tugas Akhir FP-Growth & Power BI"
+                    class="w-full h-full object-cover opacity-90"
+                  />
+                  <div
+                    class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent flex items-end p-6"
+                  >
+                    <div>
+                      <span
+                        class="px-3 py-1 bg-amber-500 text-white text-xs font-bold rounded-full uppercase tracking-wider mb-2 inline-block"
+                      >
+                        Tugas Akhir / Skripsi Research
+                      </span>
+                      <h2
+                        class="text-xl md:text-2xl font-serif font-bold text-white leading-tight"
+                      >
+                        Implementasi Algoritma FP-Growth &amp; Power BI untuk
+                        Analisis Pola Pembelian Konsumen di Rafamart
+                      </h2>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Isi Modal: Deskripsi Profesional & QR Code Dokumen Skripsi -->
+                <div class="p-6 md:p-8 space-y-6">
+                  <!-- Paragraf Penjelasan Tugas Akhir (Sangat Meyakinkan & Profesional) -->
+                  <div class="space-y-3">
+                    <h4
+                      class="text-xs font-bold text-amber-700 uppercase tracking-widest flex items-center gap-2"
+                    >
+                      <i class="fa-solid fa-file-lines"></i> Ringkasan
+                      Penelitian &amp; Kontribusi
+                    </h4>
+                    <p
+                      class="text-slate-700 text-sm md:text-base leading-relaxed text-justify"
+                    >
+                      Penelitian tugas akhir komprehensif yang berfokus pada
+                      pemanfaatan *Data Mining* untuk optimalisasi strategi
+                      penjualan retail modern di <b>Rafamart</b>.
+                      Mengimplementasikan algoritma
+                      <b>FP-Growth (*Frequent Pattern Growth*)</b> guna
+                      mengekstrak aturan asosiasi (*association rules*) dari
+                      pola transaksi belanja konsumen secara efisien tanpa
+                      proses *candidate generation*. Hasil analisis mendalam
+                      tersebut diterjemahkan ke dalam bentuk
+                      <b
+                        >Executive Interactive Dashboard menggunakan Microsoft
+                        Power BI</b
+                      >, guna menyajikan metrik performa penjualan, korelasi
+                      produk silang, serta rekomendasi tata letak barang yang
+                      akurat untuk mendukung pengambilan keputusan bisnis
+                      strategis pihak manajemen retail.
+                    </p>
+                  </div>
+
+                  <!-- Section QR Code Menuju Dokumen / Repository Tugas Akhir -->
+                  <div
+                    class="p-5 bg-amber-50/70 rounded-2xl border border-amber-200/80 flex flex-col sm:flex-row items-center gap-5"
+                  >
+                    <!-- QR Code Valid yang Mengarah ke Google Drive / Repository Skripsi -->
+                    <div
+                      class="w-28 h-28 bg-white p-2 rounded-xl border border-amber-300 shadow-md flex-shrink-0 flex items-center justify-center"
+                    >
+                      <img
+                        src="https://quickchart.io/qr?text=https%3A%2F%2Fdrive.google.com%2Fdrive%2Ffolders%2F1zoyFJtPcIjMzfPbObNoZtuFmO9AgoVNz%3Fusp%3Dsharing&size=600&margin=4&ecLevel=H&format=png"
+                        alt="QR Code Google Drive"
+                        class="w-full h-full object-contain"
+                      />
+                    </div>
+
+                    <div class="space-y-1 text-center sm:text-left">
+                      <h5
+                        class="font-bold text-slate-900 text-sm flex items-center justify-center sm:justify-start gap-2"
+                      >
+                        <i class="fa-solid fa-qrcode text-amber-600"></i> Scan
+                        Dokumen Tugas Akhir / Skripsi
+                      </h5>
+                      <p class="text-xs text-slate-600 leading-relaxed">
+                        Arahkan kamera smartphone Anda ke QR Code ini untuk
+                        membuka dokumen laporan skripsi lengkap, source code
+                        algoritma, serta file dashboard Power BI di Google
+                        Drive.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== SLIDE 5: CONTACT ==================== -->
+      <section class="presentation-slide px-8 lg:px-20 pt-16" data-index="4">
+        <!-- Glowing Background Orbs -->
+        <div
+          class="animate-float-1 absolute -top-20 -left-20 w-80 h-80 bg-amber-400/15 rounded-full blur-3xl pointer-events-none"
+        ></div>
+        <div
+          class="animate-float-2 absolute -bottom-20 -right-20 w-96 h-96 bg-amber-500/15 rounded-full blur-3xl pointer-events-none"
+        ></div>
+
+        <div
+          class="max-w-5xl w-full space-y-10 text-center mx-auto relative z-10"
+        >
+          <!-- Header Section -->
+          <div class="space-y-3 max-w-2xl mx-auto">
+            <div
+              class="animate-item delay-1 inline-flex items-center gap-2 px-4 py-1.5 bg-gradient-to-r from-amber-500/10 via-amber-400/20 to-amber-600/10 border border-amber-500/30 rounded-full text-amber-900 text-xs font-bold tracking-widest uppercase shadow-sm hover:scale-105 transition-transform duration-300"
+            >
+              <i class="fa-solid fa-comments text-amber-600 animate-pulse"></i>
+              <span>Mari Terhubung</span>
+            </div>
+
+            <h2
+              class="animate-item delay-2 font-serif text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight"
+            >
+              Let's Discuss Your Project
+            </h2>
+
+            <p
+              class="animate-item delay-3 text-slate-600 text-sm md:text-base leading-relaxed"
+            >
+              Punya proyek analitik data, pembuatan dashboard visualisasi, atau
+              perancangan sistem informasi? Jangan ragu untuk berdiskusi dan
+              membangun solusi bersama.
+            </p>
+          </div>
+          <!-- Contact Grid Container (3 Kolom: Email, WhatsApp, LinkedIn) -->
+          <div
+            class="animate-item delay-4 grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto"
+          >
+            <!-- Kartu 1: Email -->
+            <a
+              href="mailto:mutiamaharani434@email.com"
+              class="group bg-white/90 backdrop-blur-xl p-6 rounded-3xl border border-amber-900/10 shadow-lg hover:shadow-xl hover:border-amber-400/60 hover:-translate-y-2 transition-all duration-300 flex items-center gap-4 text-left relative overflow-hidden"
+            >
+              <div
+                class="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-100 to-amber-50 text-amber-700 flex items-center justify-center text-2xl font-bold flex-shrink-0 group-hover:scale-110 group-hover:bg-amber-500 group-hover:text-white shadow-md transition-all duration-300"
+              >
+                <i class="fa-solid fa-envelope"></i>
+              </div>
+              <div class="overflow-hidden">
+                <h4
+                  class="font-bold text-slate-900 text-sm group-hover:text-amber-600 transition-colors"
+                >
+                  Email
+                </h4>
+                <p class="text-xs text-slate-600 truncate font-medium">
+                  mutiamaharani434@email.com
+                </p>
+                <span
+                  class="text-[10px] text-amber-700 font-bold flex items-center gap-1 mt-1 opacity-0 group-hover:opacity-100 transition-opacity"
+                >
+                  Kirim Email <i class="fa-solid fa-arrow-right text-[9px]"></i>
+                </span>
+              </div>
+            </a>
+            <!-- Kartu 2: WhatsApp -->
+            <a
+              href="https://wa.me/6285323063150"
+              target="_blank"
+              class="group bg-white/90 backdrop-blur-xl p-6 rounded-3xl border border-amber-900/10 shadow-lg hover:shadow-xl hover:border-emerald-400/60 hover:-translate-y-2 transition-all duration-300 flex items-center gap-4 text-left relative overflow-hidden"
+            >
+              <div
+                class="w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-100 to-emerald-50 text-emerald-700 flex items-center justify-center text-2xl font-bold flex-shrink-0 group-hover:scale-110 group-hover:bg-emerald-500 group-hover:text-white shadow-md transition-all duration-300"
+              >
+                <i class="fa-brands fa-whatsapp"></i>
+              </div>
+              <div class="overflow-hidden">
+                <h4
+                  class="font-bold text-slate-900 text-sm group-hover:text-emerald-600 transition-colors"
+                >
+                  WhatsApp
+                </h4>
+                <p class="text-xs text-slate-600 truncate font-medium">
+                  +62 85323063150
+                </p>
+                <span
+                  class="text-[10px] text-emerald-700 font-bold flex items-center gap-1 mt-1 opacity-0 group-hover:opacity-100 transition-opacity"
+                >
+                  Chat WhatsApp
+                  <i class="fa-solid fa-arrow-right text-[9px]"></i>
+                </span>
+              </div>
+            </a>
+            <!-- Kartu 3: LinkedIn -->
+            <a
+              href="https://linkedin.com/in/mutiamaharani"
+              target="_blank"
+              class="group bg-white/90 backdrop-blur-xl p-6 rounded-3xl border border-amber-900/10 shadow-lg hover:shadow-xl hover:border-sky-400/60 hover:-translate-y-2 transition-all duration-300 flex items-center gap-4 text-left relative overflow-hidden"
+            >
+              <div
+                class="w-14 h-14 rounded-2xl bg-gradient-to-br from-sky-100 to-sky-50 text-sky-700 flex items-center justify-center text-2xl font-bold flex-shrink-0 group-hover:scale-110 group-hover:bg-sky-600 group-hover:text-white shadow-md transition-all duration-300"
+              >
+                <i class="fa-brands fa-linkedin-in"></i>
+              </div>
+              <div class="overflow-hidden">
+                <h4
+                  class="font-bold text-slate-900 text-sm group-hover:text-sky-600 transition-colors"
+                >
+                  LinkedIn
+                </h4>
+                <p class="text-xs text-slate-600 truncate font-medium">
+                  Mutia Maharani, S.Kom
+                </p>
+                <span
+                  class="text-[10px] text-sky-700 font-bold flex items-center gap-1 mt-1 opacity-0 group-hover:opacity-100 transition-opacity"
+                >
+                  Kunjungi Profil
+                  <i class="fa-solid fa-arrow-right text-[9px]"></i>
+                </span>
+              </div>
+            </a>
+          </div>
+          <!-- Direct CTA Banner -->
+          <div class="animate-item delay-4 pt-4">
+            <a
+              href="https://wa.me/6285323063150?text=Halo%20Mutia,%20saya%20tertarik%20untuk%20berdiskusi%20mengenai%20proyek%20analisis%20data/sistem."
+              target="_blank"
+              class="inline-flex items-center gap-3 px-8 py-3.5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold text-sm rounded-full shadow-lg hover:shadow-amber-500/30 hover:scale-105 transition-all duration-300"
+            >
+              <i class="fa-brands fa-whatsapp text-lg"></i>
+              <span>Mulai Konsultasi Gratis via WhatsApp</span>
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+    <!-- Script Kontrol Transisi, Navigasi, & Pop-Up Detail Proyek -->
+    <script>
+      function openModalProyek2() {
+        document.getElementById("modalProyek2").classList.remove("hidden");
+      }
+
+      function closeModalProyek2() {
+        document.getElementById("modalProyek2").classList.add("hidden");
+      }
+
+      // Tutup modal jika user mengklik area gelap di luar modal
+      window.addEventListener("click", function (e) {
+        const modal = document.getElementById("modalProyek2");
+        if (e.target === modal) {
+          closeModalProyek2();
+        }
+      });
+
+      <!-- ==================== JAVASCRIPT UNTUK MODAL ==================== -->
+
+      function openModalSertifikat() {
+        document.getElementById("modalSertifikat").classList.remove("hidden");
+      }
+      function closeModalSertifikat() {
+        document.getElementById("modalSertifikat").classList.add("hidden");
+      }
+      // Tutup modal jika user mengklik area gelap di luar modal
+      window.addEventListener("click", function (e) {
+        const modal = document.getElementById("modalSertifikat");
+        if (e.target === modal) {
+          closeModalSertifikat();
+        }
+      });
+
+      let currentSlide = 0;
+      const slides = document.querySelectorAll(".presentation-slide");
+      const navBtns = document.querySelectorAll(".nav-btn");
+      const totalSlides = slides.length;
+
+      function updateSlideView() {
+        slides.forEach((slide, index) => {
+          if (index === currentSlide) {
+            slide.classList.add("active");
+          } else {
+            slide.classList.remove("active");
+          }
+        });
+
+        navBtns.forEach((btn, index) => {
+          if (index === currentSlide) {
+            btn.className =
+              "nav-btn px-4 py-2 rounded-full text-xs uppercase tracking-wider font-bold bg-amber-500 text-white shadow-md transition-all";
+          } else {
+            btn.className =
+              "nav-btn px-4 py-2 rounded-full text-xs uppercase tracking-wider font-medium text-slate-600 hover:text-amber-700 hover:bg-amber-50 transition-all";
+          }
+        });
+      }
+
+      function goToSlide(index) {
+        if (index >= 0 && index < totalSlides) {
+          currentSlide = index;
+          updateSlideView();
+        }
+      }
+
+      function nextSlide() {
+        if (currentSlide < totalSlides - 1) {
+          currentSlide++;
+          updateSlideView();
+        }
+      }
+
+      function prevSlide() {
+        if (currentSlide > 0) {
+          currentSlide--;
+          updateSlideView();
+        }
+      }
+
+      // Fungsi Membuka Modal Pop-Up Detail Proyek
+      function openModal(index) {
+        const project = projectData[index];
+        document.getElementById("modalImg").src = project.image;
+        document.getElementById("modalCategory").innerText = project.category;
+        document.getElementById("modalTitle").innerText = project.title;
+        document.getElementById("modalDesc").innerText = project.description;
+
+        const techContainer = document.getElementById("modalTech");
+        techContainer.innerHTML = "";
+        project.tech.forEach((t) => {
+          const span = document.createElement("span");
+          span.className =
+            "px-3 py-1 bg-amber-50 text-amber-800 border border-amber-200 rounded-full text-xs font-semibold";
+          span.innerText = t;
+          techContainer.appendChild(span);
+        });
+
+        const modal = document.getElementById("projectModal");
+        const content = document.getElementById("modalContent");
+        modal.classList.remove("opacity-0", "pointer-events-none");
+        content.classList.remove("scale-95");
+        content.classList.add("scale-100");
+      }
+
+      // Fungsi Menutup Modal Pop-Up
+      function closeModal() {
+        const modal = document.getElementById("projectModal");
+        const content = document.getElementById("modalContent");
+        modal.classList.add("opacity-0", "pointer-events-none");
+        content.classList.remove("scale-100");
+        content.classList.add("scale-95");
+      }
+
+      // Navigasi Keyboard (Panah Kanan / Kiri)
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowRight" || e.key === "PageDown") {
+          nextSlide();
+        } else if (e.key === "ArrowLeft" || e.key === "PageUp") {
+          prevSlide();
+        } else if (e.key === "Escape") {
+          closeModal();
+        }
+      });
+
+      // Dukungan Swipe Touch untuk Perangkat Mobile
+      let touchStartX = 0;
+      let touchEndX = 0;
+
+      document.addEventListener("touchstart", (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+      });
+
+      document.addEventListener("touchend", (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+      });
+
+      function handleSwipe() {
+        if (touchEndX < touchStartX - 50) {
+          nextSlide();
+        }
+        if (touchEndX > touchStartX + 50) {
+          prevSlide();
+        }
+      }
+
+      <!-- ==================== JAVASCRIPT UNTUK MODAL PROYEK 3 ==================== -->
+      function openModalProyek3() {
+        document.getElementById("modalProyek3").classList.remove("hidden");
+      }
+
+      function closeModalProyek3() {
+        document.getElementById("modalProyek3").classList.add("hidden");
+      }
+
+      // Tutup modal jika user mengklik area gelap di luar modal
+      window.addEventListener("click", function (e) {
+        const modal = document.getElementById("modalProyek3");
+        if (e.target === modal) {
+          closeModalProyek3();
+        }
+      });
+
+      const menuToggle = document.getElementById("menuToggle");
+      const navMenu = document.getElementById("navMenu");
+
+      menuToggle.addEventListener("click", function () {
+        const open = navMenu.classList.toggle("menu-open");
+        menuToggle.setAttribute("aria-expanded", String(open));
+      });
+
+      navMenu.querySelectorAll(".nav-btn").forEach((button) => {
+        button.addEventListener("click", function () {
+          navMenu.classList.remove("menu-open");
+          menuToggle.setAttribute("aria-expanded", "false");
+        });
+      });
+
+      document.addEventListener("click", function (event) {
+        if (!document.getElementById("mainHeader").contains(event.target)) {
+          navMenu.classList.remove("menu-open");
+          menuToggle.setAttribute("aria-expanded", "false");
+        }
+      });
+    </script>
+  </body>
+</html>
